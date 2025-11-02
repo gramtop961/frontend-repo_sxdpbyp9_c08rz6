@@ -1,28 +1,57 @@
-import { useState } from 'react'
+import React from 'react';
+import { motion } from 'framer-motion';
+import Hero3D from './components/Hero3D';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const scrollTo = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
+    <div className="min-h-screen bg-black font-inter text-white">
+      {/* Minimal top nav */}
+      <div className="fixed left-0 right-0 top-0 z-40 w-full border-b border-white/10 bg-black/40 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 sm:px-8">
+          <button onClick={() => scrollTo('home')} className="text-sm font-semibold tracking-tight">
+            Your Name
           </button>
+          <nav className="flex items-center gap-2 text-xs sm:gap-4 sm:text-sm">
+            <button onClick={() => scrollTo('experience')} className="rounded-md px-3 py-1 text-white/80 hover:bg-white/5 hover:text-white">Experience</button>
+            <button onClick={() => scrollTo('projects')} className="rounded-md px-3 py-1 text-white/80 hover:bg-white/5 hover:text-white">Work</button>
+            <button onClick={() => scrollTo('contact')} className="rounded-md px-3 py-1 text-white/80 hover:bg-white/5 hover:text-white">Contact</button>
+          </nav>
         </div>
       </div>
-    </div>
-  )
-}
 
-export default App
+      {/* Sections */}
+      <main className="pt-14">
+        <Hero3D />
+        <Experience />
+        <Projects />
+        <Contact />
+      </main>
+
+      {/* Ambient background accents */}
+      <div className="pointer-events-none fixed inset-0 -z-0">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          className="absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full bg-teal-500/20 blur-[100px]"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.6, delay: 0.2 }}
+          className="absolute bottom-10 right-10 h-64 w-64 rounded-full bg-cyan-500/10 blur-[100px]"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default App;
